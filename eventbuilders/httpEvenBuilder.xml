@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<eventBuilder name="httpEvenBuilderForLocationData" statistics="enable"
+    trace="enable" xmlns="http://wso2.org/carbon/eventbuilder">
+    <from eventAdaptorName="httpInputAdaptor" eventAdaptorType="http">
+        <property name="topic">locationInStream</property>
+    </from>
+    <mapping customMapping="enable" type="json">
+        <property>
+            <from jsonPath="$.properties.timestamp"/>
+            <to default="0" name="correlation_timeStamp" type="string"/>
+        </property>
+        <property>
+            <from jsonPath="$.properties.deviceid"/>
+            <to default="0" name="deviceId" type="string"/>
+        </property>
+        <property>
+            <from jsonPath="$.geometry.coordinates[1]"/>
+            <to default="0.0" name="lattitude" type="double"/>
+        </property>
+        <property>
+            <from jsonPath="$.geometry.coordinates[0]"/>
+            <to default="0.0" name="longitude" type="double"/>
+        </property>
+    </mapping>
+    <to streamName="locationDataInputStream" version="1.0.0"/>
+</eventBuilder>

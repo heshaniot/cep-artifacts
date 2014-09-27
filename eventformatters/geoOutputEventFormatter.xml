@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<eventFormatter name="geoOutputEventFormatter" statistics="enable"
+  trace="enable" xmlns="http://wso2.org/carbon/eventformatter">
+  <from streamName="isWithinOutputStream" version="1.0.0"/>
+  <mapping customMapping="enable" type="json">
+    <inline>
+    {"type":"Feature","geometry":{"type": "Point", "coordinates": [{{longitude}},{{lattitude}}] },"properties": { "timeStamp":"{{correlation_timeStamp}}","deviceid":"{{deviceId}}","iswithin":{{iswithin}},"name" :"{{name}}" }}
+  </inline>
+  </mapping>
+  <to eventAdaptorName="HttpEventAdaptor" eventAdaptorType="http">
+    <property name="http.username"/>
+    <property name="http.password"/>
+    <property name="http.headers"/>
+    <property name="http.url">http://localhost:9763/geo-portal/geo/cep</property>
+  </to>
+</eventFormatter>

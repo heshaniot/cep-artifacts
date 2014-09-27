@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<executionPlan name="demoplan1_geo_within" statistics="disable"
+  trace="disable" xmlns="http://wso2.org/carbon/eventprocessor">
+  <description>?</description>
+  <siddhiConfiguration>
+    <property name="siddhi.persistence.snapshot.time.interval.minutes">0</property>
+    <property name="siddhi.enable.distributed.processing">null</property>
+  </siddhiConfiguration>
+  <importedStreams>
+    <stream as="locationDataInputStream" name="locationDataInputStream" version="1.0.0"/>
+  </importedStreams>
+  <queryExpressions><![CDATA[from locationDataInputStream[geo:iswithin(longitude,lattitude,"{'type':'Polygon','coordinates':[[[79.850058392286,6.907501782271858],[79.85782606959354,6.910697060051414],[79.86125929713197,6.9061810611502255],[79.85756857752725,6.900344281722837],[79.850058392286,6.907501782271858]]]}")==true] select correlation_timeStamp,deviceId,lattitude,longitude, true as iswithin, 'demoplan1_geo_within' as name insert into isWithinOutputStream; ]]></queryExpressions>
+  <exportedStreams>
+    <stream name="isWithinOutputStream" valueOf="isWithinOutputStream" version="1.0.0"/>
+  </exportedStreams>
+</executionPlan>
